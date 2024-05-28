@@ -1,5 +1,5 @@
 payment_type: (frm) {
-        //   frappe.msgprint('hello')  
+      
           if (frm.doc.payment_type==="Pay")
           {frm.set_value('naming_series','PAY-')}
           else if (frm.doc.payment_type==='Receive')
