@@ -18,7 +18,9 @@ message = "Your Exports Details in the Last 3 Seasons"
 
 # Check if tax_id is provided; if not, return an empty result
 if not tax_id:
-    data = columns, [], message
+    data = columns, [], message 
+    
+    
 else:
     # SQL query to fetch data for the report
     mysql = """
