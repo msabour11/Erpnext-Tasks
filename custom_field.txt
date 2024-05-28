@@ -1,0 +1,7 @@
+//  Add Custom Field To Core Doctype
+//we know That Core Doctype Is Restricted For Customization  But By Using Fixtures We Can Add Custom Field To Core Doctype
+// 1-  Create Custom App
+// 2- In The hook.py File Of Custom App  Add fixtures=["Custom Field"]
+// 3- Export Fixtures Of Site By Using command bench --site sitename export-fixtures and this create fixtures Folder with custom_field.json file
+// 4- In custom_field.json We Add The Custom Field like below
+// 4- Make Migration To Reflect Changes By Using Command bench --site sitename migrate
