@@ -1,5 +1,7 @@
 payment_type: (frm) {
       
+
+          //frm.set_value('naming_series','ACC-TRN-2023-2024-')
           if (frm.doc.payment_type==="Pay")
           {frm.set_value('naming_series','PAY-')}
           else if (frm.doc.payment_type==='Receive')
