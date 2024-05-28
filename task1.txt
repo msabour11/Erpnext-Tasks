@@ -1,0 +1,77 @@
+frappe.ui.form.on('Sales Invoice', {
+	customer:function(frm) {
+		if(frm.doc.customer){
+		    
+		    
+		    frappe.call({
+		        method:"frappe.client.get_list",
+		        args:{
+		             doctype:"Sales Invoice",
+		             limit:1,
+		             order_by: "creation DESC",
+		             filters:{customer:frm.doc.customer,custom_bundle_:"رسوم طلب جديد"}
+		            
+		        },
+		        callback:function(r){
+		          // console.log(`the invoice list are ${r.message}`);
+		          console.log(`the invoice list are ${JSON.stringify(r.message)}`);
+		          //invoices=JSON.stringify(r.message);
+		         if(r.message && r.message.length>0)
+		         {
+		             console.log(r.message[0].name)
+		             const invoice_name=r.message[0].name
+		             
+		             frappe.call({
+		                 method:"frappe.client.get",
+		                 args:{
+		                     doctype:"Sales Invoice",
+		                     name:invoice_name
+		                 },
+		                 callback:function(r){
+		                     console.log(`the data is ${JSON.stringify(r.message)}`)
+		                     console.log(r.message);
+		                  //   console.log(`log is ${r.message.custom_log[0]}`)
+		                     frm.add_child("custom_member_history",{
+		                         year:r.message.year,
+		                         paid_amount:r.message.paid_amount,
+		                         sales_invoice_ref:r.message.name,
+		                         volume_of_exports: r.message.custom_volume_of_exports,
+		                         member_categories: r.message.custom_customer_group,
+		                         outstanding_amount:r.message.outstanding_amount,
+		                         season_name:r.message.custom_log[0].season_name
+		                     })
+		                     frm.refresh_field("custom_member_history")
+		                 }
+		                 
+		             })
+		         }
+		          
+
+		        }
+		       
+		    })
+		    
+		    
+		    
+		}
+		
+		
+		
+		
+		
+		
+	}
+})
+
+
+
+
+
+function getHistory(){
+    
+    
+    
+    
+    
+    
+}
