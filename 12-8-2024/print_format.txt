@@ -1,0 +1,74 @@
+<div class="header">
+    <!--<img class="head-img" src="/files/1wehtpC.png" />-->
+    <!--<p class="head-text"><strong>وزارة الشباب والرياضة  <br> المدينة الرياضية بأكتوبر</strong></p>-->
+    <p style="text-align: right;font-size:10px;"><strong> <img alt="" height="67" src="http://192.168.2.253/files/iw6Mjcq.png" style="float: left;" width="73">&nbsp; &nbsp;وزارة الشباب والرياضة</strong></p>
+<p style="text-align: right;font-size:10px;font-weight:bold;margin-bottom:50px"><strong>المدينة الرياضية بأكتوبر</strong></p>
+</div>
+
+<P class="head"> إيصال إستلام نقدية </p>
+<p class="sub-head"> رقم / {{doc.name}} </p>
+
+<div class="first">
+    <div class="data">
+        <p style="margin-bottom:20px">التاريــــــــــــــــخ : {{doc.posting_date}}</p>
+        <p style="margin-bottom:20px">
+            {% if doc.party_type == 'Customer' %}
+            رقم العضوية :  {{doc.party}}  </p>
+            {% endif %}
+        <p style="margin-bottom:15px">خزينــــــــــــــــــة  : {{doc.paid_to}} </p>
+        <p style="margin-bottom:15px">اسم العضــــو : {{doc.party_name}} </p>
+        
+        {% if doc.customer_number %}
+        <p style="margin-bottom:15px">رقم العضو  : {{doc.customer_number}} </p>
+        {% endif %}
+        
+        <p style="margin-bottom:15px"> المبلـــــــــــــــغ : {{doc.paid_amount}} ( {{ frappe.utils.money_in_words(doc.paid_amount) }})</p>
+        <!--<p style="margin-bottom:20px"> وذلك  : {{doc.remarks}}</p>-->
+        <p style="margin-bottom:15px">
+             {% for prog in doc.references %}
+                 {% if prog.reference_doctype == 'Sales Invoice' %}
+                    {% set prog_name = prog.reference_name %}
+                    {% set pro = frappe.db.get_value('Sales Invoice',prog_name, 'product_bundle') %}
+                    {% set sales_invoice = frappe.get_doc('Sales Invoice',prog_name) %}
+                    {% if pro %}
+                        <span>وذلك قيمـــة : {{pro}}</span>
+                    {% else %}
+                        <span> وذلك قيمـــة:  </span>
+                        {% for item in sales_invoice['items'] %}
+                            <span> {{item.item}}، </span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+                {% endif %}
+            
+             <p>عن تاريخ : {{prog.due_date}} </p>
+             {% endfor %}
+             
+            <p style="margin-bottom:10px">
+            {% if doc.fee_structure %}
+            
+             
+            وذلك قيمـــة : {{doc.fee_structure}}
+            
+            </p>
+          {% endif %}
+              <!--<p>وذلك قيمة : {{doc.description}}</p>-->
+        <p style="margin-bottom:10px">تارىخ الطباعة :  {{doc.posting_date}}</p>
+
+        <!--<p style="margin-top:40px;margin-bottom:70px">تاريخ الطباعــة :  {{frappe.utils.today()}}</p>-->
+        <p style="margin-bottom:10px">وقت الطباعـــة : {{ frappe.utils.now_datetime().strftime('%H:%M') }}</p>
+
+
+    </div>
+    <p style="text-size:20px;text-align:center;font-weight:bold;margin-bottom:10px">شكرا </p>
+    <p style="text-size:20px;text-align:center;font-weight:bold;margin-bottom:10px"> نادي النادي </p>
+    <!--<div class="two">-->
+        <!--<p>قرش </p>-->
+        <!--<p>جنيه </p>-->
+    <!--</div>-->
+    
+</div>
+<p style="font-weight: bold; font-size: 10px; margin-top: 10px; text-align: right;">الختم&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; إمضاء الخزينة&nbsp;</p>
+
+
+
